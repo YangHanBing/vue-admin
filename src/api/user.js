@@ -1,6 +1,6 @@
-import service from '@/utils/request'
+import request from '@/utils/request'
 const login = (data) => {
-  return service({
+  return request({
     url: '/captcha',
     method: 'GET',
     data
