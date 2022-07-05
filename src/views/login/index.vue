@@ -21,7 +21,7 @@
           </el-form-item>
           <el-form-item label="验证码:" prop="cname">
             <el-input v-model="loginForm.cname" type="password" class="cname" />
-            <img :src="CnameImg"  class='cname_img'/>
+            <img :src="CnameImg" class="cname_img" @click="getNewCname" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submit">提交</el-button>
@@ -58,6 +58,10 @@ const getInfo = async () => {
   store.dispatch('user/setToken', response.token)
 }
 getInfo()
+// 获取新的验证码
+const getNewCname = () => {
+  getInfo()
+}
 // 定义提交按钮函数
 const submit = () => {
   // 通过ref的值触发验证
@@ -104,7 +108,7 @@ const submit = () => {
       .cname {
         width: 152px;
       }
-      .cname_img{
+      .cname_img {
         margin-left: 8px;
       }
     }
