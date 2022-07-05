@@ -19,9 +19,9 @@
           <el-form-item label="密码: " prop="password">
             <el-input v-model="loginForm.password" type="password" />
           </el-form-item>
-          <el-form-item label="验证码:" prop="cname">
-            <el-input v-model="loginForm.cname" type="password" class="cname" />
-            <img :src="CnameImg" class="cname_img" @click="getNewCname" />
+          <el-form-item label="验证码:" prop="code">
+            <el-input v-model="loginForm.code" type="password" class="code" />
+            <img :src="codeImg" class="code_img" @click="getNewcode" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submit">提交</el-button>
@@ -36,17 +36,19 @@
 import { ref, reactive } from 'vue'
 import User from '../../api/user'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 const store = useStore()
+const router = useRouter()
 const loginForm = reactive({
   username: 'test',
-  password: '',
-  cname: ''
+  password: '1234567',
+  code: ''
 })
-const CnameImg = ref('')
+const codeImg = ref('')
 const rules = {
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-  cname: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
+  code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
 }
 // 使用ref定义dom对象
 const loginform = ref(null)
@@ -54,12 +56,12 @@ const loginform = ref(null)
 // 直接获取token和验证码
 const getInfo = async () => {
   const response = await User.getToken()
-  CnameImg.value = response.captchaImg
+  codeImg.value = response.captchaImg
   store.dispatch('user/setToken', response.token)
 }
 getInfo()
 // 获取新的验证码
-const getNewCname = () => {
+const getNewcode = () => {
   getInfo()
 }
 // 定义提交按钮函数
@@ -67,10 +69,14 @@ const submit = () => {
   // 通过ref的值触发验证
   loginform.value.validate(async (valid) => {
     if (valid) {
-      console.log('通过')
-      // 触发成功验证表单，调用接口；
-      const response = await User.login()
+      const response = await User.login({
+        username: loginForm.username,
+        password: loginForm.password,
+        code: loginForm.code,
+        token: store.getters.token
+      })
       console.log(response)
+      router.push('/')
     } else {
       console.log('未通过')
     }
@@ -105,10 +111,10 @@ const submit = () => {
       .el-form-item {
         margin: 30px 0;
       }
-      .cname {
+      .code {
         width: 152px;
       }
-      .cname_img {
+      .code_img {
         margin-left: 8px;
       }
     }

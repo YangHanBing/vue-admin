@@ -14,7 +14,7 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     loading.open()
-    // 将token通过请求头发送给后台
+    // 将token通过请求头发送给后台 （本项目不用）
     // const token = store.getters.token
     // if (token) config.headers.Authorization = 'Bearer ' + token
     return config
