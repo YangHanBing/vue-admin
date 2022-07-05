@@ -7,6 +7,7 @@ module.exports = defineConfig({
     port:8080,
     https:false,
     host:'localhost',
+    // 跨域
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
         target: process.env.VUE_APP_SERVICE_URL,
