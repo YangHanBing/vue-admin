@@ -21,12 +21,15 @@
         </div>
       </div>
     </div>
-    <div class="tagsview"></div>
+    <div class="tagsview">
+      <TagsView></TagsView>
+    </div>
   </div>
 </template>
 <script setup>
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import TagsView from '../components/TagsView'
 const store = useStore()
 const router = useRouter()
 const userInfo = store.getters.userInfo
@@ -86,7 +89,6 @@ const handleLogout = async () => {
   }
   .tagsview {
     position: absolute;
-    bottom: 0;
     height: 40px;
     border-bottom: 1px solid #ccc;
   }
