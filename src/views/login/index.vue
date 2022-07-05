@@ -20,7 +20,7 @@
             <el-input v-model="loginForm.password" type="password" />
           </el-form-item>
           <el-form-item label="验证码:" prop="code">
-            <el-input v-model="loginForm.code" type="password" class="code" />
+            <el-input v-model="loginForm.code" type="text" class="code" />
             <img :src="codeImg" class="code_img" @click="getNewcode" />
           </el-form-item>
           <el-form-item>
