@@ -1,5 +1,8 @@
-const { defineConfig } = require('@vue/cli-service')
+const {
+  defineConfig
+} = require('@vue/cli-service')
 const path = require('path')
+
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -8,8 +11,8 @@ module.exports = defineConfig({
   publicPath: './',
   devServer: {
     open: true,
-    port: 8080,
     https: false,
+    port: 8080,
     host: 'localhost',
     proxy: {
       [process.env.VUE_APP_BASE_API]: {

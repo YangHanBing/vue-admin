@@ -1,18 +1,18 @@
 import request from '@/utils/request'
-const login = (data) => {
+const getToken = (data) => {
   return request({
     url: '/captcha',
     method: 'GET',
     data
   })
 }
-const userInfo = () => {
+const login = () => {
   return request({
     url: '/sys/menu/nav',
     method: 'GET'
   })
 }
 export default {
-  login,
-  userInfo
+  getToken,
+  login
 }

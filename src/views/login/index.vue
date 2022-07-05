@@ -21,9 +21,10 @@
           </el-form-item>
           <el-form-item label="验证码:" prop="cname">
             <el-input v-model="loginForm.cname" type="password" class="cname" />
+            <img :src="CnameImg"  class='cname_img'/>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="send">提交</el-button>
+            <el-button type="primary" @click="submit">提交</el-button>
             <el-button>获取密码</el-button>
           </el-form-item>
         </el-form>
@@ -34,11 +35,14 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import User from '../../api/user'
+import { useStore } from 'vuex'
+const store = useStore()
 const loginForm = reactive({
   username: 'test',
   password: '',
   cname: ''
 })
+const CnameImg = ref('')
 const rules = {
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
@@ -47,14 +51,21 @@ const rules = {
 // 使用ref定义dom对象
 const loginform = ref(null)
 
+// 直接获取token和验证码
+const getInfo = async () => {
+  const response = await User.getToken()
+  CnameImg.value = response.captchaImg
+  store.dispatch('user/setToken', response.token)
+}
+getInfo()
 // 定义提交按钮函数
-const send = () => {
+const submit = () => {
   // 通过ref的值触发验证
   loginform.value.validate(async (valid) => {
     if (valid) {
       console.log('通过')
       // 触发成功验证表单，调用接口；
-      const response = await User.login(loginForm.value)
+      const response = await User.login()
       console.log(response)
     } else {
       console.log('未通过')
@@ -90,8 +101,11 @@ const send = () => {
       .el-form-item {
         margin: 30px 0;
       }
-      .cname{
+      .cname {
         width: 152px;
+      }
+      .cname_img{
+        margin-left: 8px;
       }
     }
   }

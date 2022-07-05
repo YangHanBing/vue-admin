@@ -1,6 +1,6 @@
 import axios from 'axios'
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: 'https://www.markerhub.com/vueadmin-java',
   timeout: 5000
 })
 service.interceptors.request.use(
@@ -12,7 +12,16 @@ service.interceptors.request.use(
   })
 service.interceptors.response.use(
   (res) => {
-    return res
+    const {
+      code,
+      data,
+      msg
+    } = res.data
+    if (code === 200) {
+      return data
+    } else {
+      return Promise.reject(new Error(msg))
+    }
   },
   (err) => {
     return Promise.reject(err)
