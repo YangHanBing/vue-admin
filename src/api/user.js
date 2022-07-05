@@ -6,6 +6,13 @@ const login = (data) => {
     data
   })
 }
+const userInfo = () => {
+  return request({
+    url: '/sys/menu/nav',
+    method: 'GET'
+  })
+}
 export default {
-  login
+  login,
+  userInfo
 }
