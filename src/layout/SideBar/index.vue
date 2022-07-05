@@ -1,5 +1,9 @@
 <template>
-  <div class="">sidebar</div>
+  <div class="">
+    <SideBarMenu></SideBarMenu>
+  </div>
 </template>
-<script setup></script>
+<script setup>
+import SideBarMenu from './SideBarMenu'
+</script>
 <style scoped lang="scss"></style>

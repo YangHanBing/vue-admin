@@ -69,13 +69,12 @@ const submit = () => {
   // 通过ref的值触发验证
   loginform.value.validate(async (valid) => {
     if (valid) {
-      const response = await User.login({
+      await User.login({
         username: loginForm.username,
         password: loginForm.password,
         code: loginForm.code,
         token: store.getters.token
       })
-      console.log(response)
       router.push('/')
     } else {
       console.log('未通过')

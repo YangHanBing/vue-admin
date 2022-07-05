@@ -1,11 +1,11 @@
 <template>
   <div class="app-wrapper">
-    <sidebar class="sidebar-container"></sidebar>
+    <Sidebar class="sidebar-container"></Sidebar>
     <div class="main-container">
       <div class="fiexed-header">
-        <navbar></navbar>
+        <Navbar></Navbar>
       </div>
-      <app-main class="app-main"></app-main>
+      <AppMain class="app-main"></AppMain>
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ import AppMain from './AppMain'
     position: relative;
     .fiexed-header {
       width: calc(100% - 210px);
-      background-color: pink;
+      background-color: #17b3a3;
       position: fixed;
       top: 0;
       right: 0;
