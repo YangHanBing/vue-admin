@@ -4,7 +4,7 @@ import {
 } from 'element-plus'
 // 引入封装订单loading加载
 import loading from './loading'
-// import store from '../store'
+import store from '../store'
 
 const service = axios.create({
   baseURL: 'https://www.markerhub.com/vueadmin-java',
@@ -14,9 +14,9 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     loading.open()
-    // 将token通过请求头发送给后台 （本项目不用）
-    // const token = store.getters.token
-    // if (token) config.headers.Authorization = 'Bearer ' + token
+    // 将token通过请求头发送给后台 （本项目不加bear）
+    const token = store.getters.token
+    if (token) config.headers.Authorization = token
     return config
   },
   (err) => {
@@ -32,6 +32,9 @@ service.interceptors.response.use(
       data,
       msg
     } = res.data
+    if (res.headers.authorization) {
+      store.dispatch("user/setToken", res.headers.authorization)
+    }
     if (code === 200) {
       return data
     } else {

@@ -1,15 +1,22 @@
 import request from '@/utils/request'
 // 获取token和验证码
-const getToken = (data) => {
+const getToken = () => {
   return request({
     url: '/captcha',
-    method: 'GET',
-    data
+    method: 'GET'
   })
 }
-const nav = () => {
+// 获取路由数据
+const getRoutes = () => {
   return request({
     url: '/sys/menu/nav',
+    method: 'GET'
+  })
+}
+// 获取userInfo数据
+const getUserInfo = () => {
+  return request({
+    url: '/sys/userInfo',
     method: 'GET'
   })
 }
@@ -23,6 +30,7 @@ const login = (data) => {
 }
 export default {
   getToken,
-  nav,
+  getRoutes,
+  getUserInfo,
   login
 }

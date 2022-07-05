@@ -7,7 +7,8 @@ export default {
   namespaced: true,
   state: () => ({
     token: getItem('token') || '',
-    userInfo: {}
+    userInfo: {},
+    routes: getItem('routes') || {}
   }),
   mutations: {
     setToken(state, token) {
@@ -16,6 +17,11 @@ export default {
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
+      setItem('userInfo', userInfo)
+    },
+    setRoutes(state,routes){
+      state.routes = routes
+      setItem('routes', routes)
     }
   },
   actions: {
@@ -32,6 +38,18 @@ export default {
       try {
         const response = await User.getUserInfo()
         commit('setUserInfo', response)
+        return response
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    // 将路由数据存入本地
+    async getRoutes({
+      commit
+    }) {
+      try {
+        const response = await User.getRoutes()
+        commit('setRoutes', response.nav)
         return response
       } catch (err) {
         console.log(err)

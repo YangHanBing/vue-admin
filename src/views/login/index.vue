@@ -42,7 +42,8 @@ const router = useRouter()
 const loginForm = reactive({
   username: 'test',
   password: '1234567',
-  code: ''
+  code: '',
+  token: ''
 })
 const codeImg = ref('')
 const rules = {
@@ -57,7 +58,7 @@ const loginform = ref(null)
 const getInfo = async () => {
   const response = await User.getToken()
   codeImg.value = response.captchaImg
-  store.dispatch('user/setToken', response.token)
+  loginForm.token = response.token
 }
 getInfo()
 // 获取新的验证码
@@ -69,12 +70,19 @@ const submit = () => {
   // 通过ref的值触发验证
   loginform.value.validate(async (valid) => {
     if (valid) {
+      // 调用登录接口
       await User.login({
         username: loginForm.username,
         password: loginForm.password,
         code: loginForm.code,
-        token: store.getters.token
+        token: loginForm.token
       })
+      if (store.getters.token) {
+        // 调用获取用户信息接口
+        await store.dispatch('user/getUserInfo')
+        // 调用获取路由数据接口
+        await store.dispatch('user/getRoutes')
+      }
       router.push('/')
     } else {
       console.log('未通过')
