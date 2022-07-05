@@ -2,19 +2,31 @@ import axios from 'axios'
 import {
   ElMessage
 } from 'element-plus'
+// 引入封装订单loading加载
+import loading from './loading'
+// import store from '../store'
+
 const service = axios.create({
   baseURL: 'https://www.markerhub.com/vueadmin-java',
   timeout: 5000
 })
+// 请求拦截器
 service.interceptors.request.use(
   (config) => {
+    loading.open()
+    // 将token通过请求头发送给后台
+    // const token = store.getters.token
+    // if (token) config.headers.Authorization = 'Bearer ' + token
     return config
   },
   (err) => {
+    loading.close()
     return Promise.reject(err)
   })
+// 响应拦截器
 service.interceptors.response.use(
   (res) => {
+    loading.close()
     const {
       code,
       data,
@@ -23,6 +35,7 @@ service.interceptors.response.use(
     if (code === 200) {
       return data
     } else {
+      loading.close()
       _showError(msg)
       return Promise.reject(new Error(msg))
     }
