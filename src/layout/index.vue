@@ -39,7 +39,6 @@ import AppMain from './AppMain'
     position: relative;
     .fiexed-header {
       width: calc(100% - 210px);
-      background-color: #17b3a3;
       position: fixed;
       top: 0;
       right: 0;

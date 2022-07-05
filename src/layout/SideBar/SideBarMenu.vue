@@ -1,10 +1,10 @@
 <template>
   <el-menu
-    active-text-color="#fff"
+    active-text-color="#ffd04b"
     background-color="#545c64"
     class="el-menu-vertical-demo"
     :default-active="$route.path"
-    text-color="#bfcbd9"
+    text-color="#fff"
     router
   >
     <SideBarMenuItem
