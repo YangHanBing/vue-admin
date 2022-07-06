@@ -3,8 +3,11 @@ import {
   createWebHashHistory
 } from 'vue-router'
 import Layout from '../layout'
-
-const publicRoutes = [{
+import userList from './modules/userList'
+import roleList from './modules/roleList'
+import menuList from './modules/menuList'
+// 公共路由表
+export const publicRoutes = [{
     path: '/login',
     name: 'login',
     component: () => import('../views/login')
@@ -96,5 +99,49 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: publicRoutes
 })
-
+// 私有路由表
+export const privateRoutes = [
+  userList,
+  roleList,
+  menuList
+]
 export default router
+
+// {
+//   path: '/sys',
+//   name: 'sys',
+//   component: Layout,
+//   redirect: '/sys/users',
+//   meta: {
+//     title: '系统管理',
+//     icon: 'personnel'
+//   },
+//   children: [{
+//       path: '/sys/users',
+//       component: () => import('../views/sys-users'),
+//       name: 'sysusers',
+//       meta: {
+//         title: '用户管理',
+//         icon: 'article'
+//       },
+//     },
+//     {
+//       path: '/sys/roles',
+//       component: () => import('../views/sys-roles'),
+//       name: 'sysroles',
+//       meta: {
+//         title: '角色管理',
+//         icon: 'article'
+//       },
+//     },
+//     {
+//       path: '/sys/menus',
+//       component: () => import('../views/sys-menus'),
+//       name: 'sysmenus',
+//       meta: {
+//         title: '菜单管理',
+//         icon: 'article'
+//       },
+//     },
+//   ]
+// },

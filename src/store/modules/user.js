@@ -4,12 +4,15 @@ import {
   getItem,
   removeItem
 } from '../../utils/storage'
+import {
+  resetRouter
+} from '../../utils/removeRouter'
 export default {
   namespaced: true,
   state: () => ({
     token: getItem('token') || '',
     userInfo: getItem('userInfo') || {},
-    routes: getItem('routes') || {}
+    routes: []
   }),
   mutations: {
     setToken(state, token) {
@@ -22,7 +25,7 @@ export default {
     },
     setRoutes(state, routes) {
       state.routes = routes
-      setItem('routes', routes)
+      // setItem('routes', routes)
     }
   },
   actions: {
@@ -51,21 +54,27 @@ export default {
     }) {
       try {
         const response = await User.getRoutes()
-        commit('setRoutes', response.nav)
+        // commit('setRoutes', response.nav)
         return response
       } catch (err) {
         console.log(err)
       }
     },
     // 删除本地和vuex的token和用户信息
-    logout({
+    async logout({
       commit
     }) {
-      commit('setToken', '')
-      commit('setUserInfo', {})
-      removeItem('token')
-      removeItem('userInfo')
-      removeItem('routes')
+      try {
+        await User.logout()
+        resetRouter()
+        commit('setToken', '')
+        commit('setUserInfo', {})
+        removeItem('token')
+        removeItem('userInfo')
+        return response
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }

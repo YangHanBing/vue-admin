@@ -20,6 +20,13 @@ const getUserInfo = () => {
     method: 'GET'
   })
 }
+// 退出登录接口
+const logout = () => {
+  return request({
+    url: '/logout',
+    method: 'POST'
+  })
+}
 // 登录接口
 const login = (data) => {
   return request({
@@ -32,5 +39,6 @@ export default {
   getToken,
   getRoutes,
   getUserInfo,
-  login
+  login,
+  logout
 }
