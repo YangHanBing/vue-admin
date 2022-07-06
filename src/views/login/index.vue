@@ -77,12 +77,6 @@ const submit = () => {
         code: loginForm.code,
         token: loginForm.token
       })
-      if (store.getters.token) {
-        // 调用获取用户信息接口
-        await store.dispatch('user/getUserInfo')
-        // 调用获取路由数据接口
-        await store.dispatch('user/getRoutes')
-      }
       router.push('/')
     } else {
       console.log('未通过')

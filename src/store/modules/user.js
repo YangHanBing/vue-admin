@@ -11,70 +11,55 @@ export default {
   namespaced: true,
   state: () => ({
     token: getItem('token') || '',
-    userInfo: getItem('userInfo') || {},
-    routes: []
+    userInfo: '',
+    routes: ''
   }),
   mutations: {
+    // 将token存入本地
     setToken(state, token) {
       state.token = token
       setItem('token', token)
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
-      setItem('userInfo', userInfo)
     },
     setRoutes(state, routes) {
       state.routes = routes
-      // setItem('routes', routes)
     }
   },
   actions: {
-    // 将token存入本地
+    // 将token存入vuex
     async setToken({
       commit
     }, payload) {
       commit('setToken', payload)
     },
-    // 将用户信息存入本地
+    // 将用户信息存入vuex
     async getUserInfo({
       commit
     }) {
-      try {
-        const response = await User.getUserInfo()
-        commit('setUserInfo', response)
-        console.log(response);
-        return response
-      } catch (err) {
-        console.log(err)
-      }
+      const response = await User.getUserInfo()
+      commit('setUserInfo', response)
+      return response
     },
-    // 将路由数据存入本地
+    // 将路由数据存入vuex
     async getRoutes({
       commit
     }) {
-      try {
-        const response = await User.getRoutes()
-        // commit('setRoutes', response.nav)
-        return response
-      } catch (err) {
-        console.log(err)
-      }
+      const response = await User.getRoutes()
+      commit('setRoutes', response)
+      return response
     },
     // 删除本地和vuex的token和用户信息
     async logout({
       commit
     }) {
-      try {
-        await User.logout()
-        resetRouter()
-        commit('setToken', '')
-        commit('setUserInfo', {})
-        removeItem('token')
-        removeItem('userInfo')
-        return response
-      } catch (err) {
-        console.log(err)
-      }
+      const response = await User.logout()
+      resetRouter()
+      commit('setToken', '')
+      commit('setUserInfo', {})
+      removeItem('token')
+      return response
     }
   }
 }

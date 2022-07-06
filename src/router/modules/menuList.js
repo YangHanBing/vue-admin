@@ -3,7 +3,7 @@ import Layout from '../../layout'
 export default {
   path: '/sys',
   component: Layout,
-  name: 'sysmenus',
+  name: 'sys:menu:list',
   meta: {
     title: '菜单管理',
     icon: 'personnel'

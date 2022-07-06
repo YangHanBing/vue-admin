@@ -2,7 +2,7 @@ import Layout from '../../layout'
 export default {
   path: '/sys',
   component: Layout,
-  name: 'sysusers',
+  name: 'sys:user:list',
   meta: {
     title: '系统管理',
     icon: 'personnel'

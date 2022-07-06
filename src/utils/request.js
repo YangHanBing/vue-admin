@@ -27,20 +27,13 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (res) => {
     loading.close()
-    const {
-      code,
-      data,
-      msg
-    } = res.data
-    if (res.headers.authorization) {
-      store.dispatch("user/setToken", res.headers.authorization)
+    const authorization = res.headers.authorization
+    if (authorization) {
+      store.commit('user/setToken', authorization)
     }
-    if (code === 200) {
-      return data
-    } else {
-      loading.close()
-      _showError(msg)
-      return Promise.reject(new Error(msg))
+
+    if (res.data.code === 200) {
+      return res.data.data
     }
   },
   (err) => {
