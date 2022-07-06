@@ -31,7 +31,6 @@ service.interceptors.response.use(
     if (authorization) {
       store.commit('user/setToken', authorization)
     }
-
     if (res.data.code === 200) {
       return res.data.data
     }

@@ -4,6 +4,7 @@
       <!-- <el-icon>
         <svg-icon :icon="item.meta.icon"></svg-icon>
       </el-icon> -->
+      <el-icon><ScaleToOriginal /></el-icon>
       {{ item.meta.title }}
     </el-menu-item>
   </template>
@@ -13,6 +14,7 @@
         <!-- <el-icon>
           <svg-icon :icon="item.meta.icon"></svg-icon>
         </el-icon> -->
+        <el-icon><HomeFilled /></el-icon>
         {{ item.meta.title }}
       </template>
       <SideBarMenuItem
