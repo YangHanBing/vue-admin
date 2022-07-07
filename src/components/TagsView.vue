@@ -9,8 +9,8 @@
         :class="{ active: $route.path === item.path }"
       >
         {{ item.title }}
-        <span @click.stop="handleCloseTag(index)" class="icon">
-          <p v-if="!($route.path === item.path)">x</p>
+        <span @click.stop="handleCloseTag(index,item.path)" class="icon">
+          <p v-if="($route.path === item.path)">x</p>
         </span>
       </li>
     </ul>
@@ -48,7 +48,29 @@ const handleSelected = (path) => {
   router.push(path)
 }
 // tagsview的删除事件
-const handleCloseTag = (index) => {
+const handleCloseTag = (index, routePath) => {
+  // 如果点击首页不可以删除
+  if (routePath === '/home') {
+    return
+  }
+  let path = ''
+  // 如果点击的是最后一个
+  if (index === tagsView.value.length - 1) {
+    // 如果最后一个不是第一个
+    if (index !== 0) {
+      // 如果点击的上一个存在，跳转路径就是上一项的路径，反之则跳转当前页面(也就是只有一个)
+      path = tagsView.value[index - 1].path ? tagsView.value[index - 1].path : tagsView.value[index].path
+    } else {
+    // 如果最后一个是第一个（也就是只有一个）
+      path = tagsView.value[index].path
+      return
+    }
+  // 如果tagsview中不止一项
+  } else if (tagsView.value.length !== 1) {
+    // 跳转路径是下一项的路径
+    path = tagsView.value[index + 1].path
+  }
+  router.push(path)
   store.commit('tagsview/removeTagsView', index)
 }
 </script>
