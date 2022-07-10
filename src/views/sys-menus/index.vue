@@ -1,5 +1,5 @@
 <template>
-  <div class="">menu</div>
+  <div class="">菜单管理</div>
 </template>
 <script setup></script>
 <style scoped lang="scss"></style>

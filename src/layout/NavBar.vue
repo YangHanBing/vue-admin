@@ -75,7 +75,7 @@ const handleLogout = async () => {
       align-items: center;
       position: absolute;
       right: 30px;
-      top:0;
+      top: 0;
       img {
         width: 30px;
         height: 30px;
@@ -91,6 +91,8 @@ const handleLogout = async () => {
     position: absolute;
     height: 40px;
     border-bottom: 1px solid #ccc;
+    width:100%;
+    overflow: auto;
   }
 }
 </style>

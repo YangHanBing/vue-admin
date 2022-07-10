@@ -11,7 +11,7 @@ export default {
   children: [
     {
       path: '/user/roles',
-      component: () => import('../../views/sys-users'),
+      component: () => import('../../views/sys-roles'),
       meta: {
         title: '角色管理',
         icon: 'role'

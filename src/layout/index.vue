@@ -43,15 +43,16 @@ import AppMain from './AppMain'
       top: 0;
       right: 0;
       z-index: 999;
-      height:95px;
+      height: 95px;
     }
-    .app-main{
-      background-color: skyblue;
+    .app-main {
+      box-sizing: border-box;
+      padding: 20px;
       position: fixed;
-      bottom:0;
-      right:0;
+      bottom: 0;
+      right: 0;
       width: calc(100% - 210px);
-      height:calc(100% - 95px);
+      height: calc(100% - 95px);
       z-index: 999;
     }
   }
